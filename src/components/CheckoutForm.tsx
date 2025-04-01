@@ -64,10 +64,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ onSubmit, onBack }) => {
   });
 
   const handleFormSubmit = (values: z.infer<typeof formSchema>) => {
-    // In a real app, you would send this data to your payment processor
     console.log("Payment form submitted:", values);
     
-    // Simulate payment processing
     setTimeout(() => {
       onSubmit();
     }, 1000);
