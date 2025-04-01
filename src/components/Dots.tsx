@@ -16,25 +16,20 @@ const Dots: React.FC<DotsProps> = ({
 
   useEffect(() => {
     const animateDots = () => {
-      // Generate random dots lengths between min and max values
       const generateDots = (min: number, max: number) => {
         const length = Math.floor(Math.random() * (max - min + 1)) + min;
         return '.'.repeat(length);
       };
 
-      // Update dots with random lengths
       setDots1(generateDots(8, 20));
       setDots2(generateDots(10, 25));
       setDots3(generateDots(4, 12));
     };
 
-    // Initial animation
     animateDots();
 
-    // Set up interval for continuous animation
     const interval = setInterval(animateDots, 500);
 
-    // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
