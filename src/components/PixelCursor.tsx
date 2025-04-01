@@ -7,17 +7,14 @@ const PixelCursor = () => {
   const pixelSize = 2;
 
   useEffect(() => {
-    // Hide the default cursor
     document.body.style.cursor = 'none';
     
-    // Setup the canvas
     const canvas = canvasRef.current;
     if (!canvas) return;
     
     const context = canvas.getContext('2d');
     if (!context) return;
     
-    // Set canvas to full screen
     const updateCanvasSize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -26,28 +23,22 @@ const PixelCursor = () => {
     updateCanvasSize();
     window.addEventListener('resize', updateCanvasSize);
     
-    // Track mouse movement
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPosition({ x: e.clientX, y: e.clientY });
       
-      // Draw or erase the pixel under the cursor
       if (context) {
-        // Get the color of the current pixel
         const x = Math.floor(e.clientX / pixelSize) * pixelSize;
         const y = Math.floor(e.clientY / pixelSize) * pixelSize;
         
         const pixelData = context.getImageData(x, y, 1, 1).data;
         const currentColor = `rgb(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]})`;
         
-        // RGB values for #f06ffc
         const targetColor = 'rgb(240, 111, 252)';
         
-        // Toggle the pixel color
         if (currentColor === targetColor) {
-          // If already magenta, revert to original color (transparent)
           context.clearRect(x, y, pixelSize, pixelSize);
         } else {
-          // If not magenta, make it magenta
+
           context.fillStyle = '#f06ffc';
           context.fillRect(x, y, pixelSize, pixelSize);
         }
@@ -56,7 +47,7 @@ const PixelCursor = () => {
     
     window.addEventListener('mousemove', handleMouseMove);
     
-    // Cleanup
+
     return () => {
       document.body.style.cursor = 'auto';
       window.removeEventListener('mousemove', handleMouseMove);
